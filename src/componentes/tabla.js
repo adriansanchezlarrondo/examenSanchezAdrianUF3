@@ -22,8 +22,7 @@ export const tabla =  {
     `,
     script : ()=>{
         document.querySelector('#btnAñadir').addEventListener('click', (e) => {
-            e.preventDefault()
-
+            e.preventDefault()    
 
             const nombreGrupo = document.querySelector('#nombreGrupo').value
             const numeroMesa = document.querySelector('#numeroMesa').value

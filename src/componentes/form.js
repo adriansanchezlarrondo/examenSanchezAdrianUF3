@@ -25,7 +25,7 @@ export const form =  {
                 
                     <input id="cantidad" type="number" value="0" class="form-control">
                 </div>
-                <button class="btn btn-success mt-4 w-100">¡Enviar pedido!</button>
+                <button id="btnAñadir" class="btn btn-success mt-4 w-100">¡Enviar pedido!</button>
             </form>
         </div>
         <div class="col-6 border ">
