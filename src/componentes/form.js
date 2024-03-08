@@ -9,9 +9,9 @@ export const form =  {
         <div class="col-6">
             <h3>Grupo</h3>
             <label for="nombreGrupo" class="label-control">Nombre del grupo:</label>
-            <input id="nombreGrupo" type="text" class="form-control mt-2" placeholder ="Borrachos de DAW2">
+            <input id="nombreGrupo" type="text" class="form-control mt-2" placeholder="Borrachos de DAW2" minlength="4" maxlength="10">
             <label for="numeroMesa" class="label-control">Mesa numero</label>
-            <input id="numeroMesa" type="number" class="form-control mt-2" placeholder ="0">
+            <input id="numeroMesa" type="number" class="form-control mt-2" placeholder ="1" minlength="1" maxlength="15">
             
             <h3 class="mt-5">Haz tu pedido</h3>
             <div class="d-flex gap-3 ">

@@ -24,6 +24,7 @@ export const tabla =  {
         document.querySelector('#btnAñadir').addEventListener('click', (e) => {
             e.preventDefault()
 
+
             const nombreGrupo = document.querySelector('#nombreGrupo').value
             const numeroMesa = document.querySelector('#numeroMesa').value
             const nombreCerveza = document.querySelector('#cervezas').options[document.querySelector('#cervezas').selectedIndex].text
@@ -40,7 +41,6 @@ export const tabla =  {
             console.log(pedidos)
 
             const ultimoPedido = pedidos[pedidos.length - 1]
-            // console.log('ultimoPedido', ultimoPedido);
 
             document.querySelector('#tbodyPedidos').innerHTML += `
             <tr data-pedido="${ultimoPedido.id}" class="pedido">
@@ -76,6 +76,7 @@ export const tabla =  {
                 const pedidosNuevo = pedidos.filter(pedido => pedido.id != idPedido)
                 
                 document.querySelector('#tbodyPedidos').innerHTML = ''
+                
                 pedidosNuevo.forEach(item => {
                     document.querySelector('#tbodyPedidos').innerHTML += `
                     <tr data-pedido="${item.id}" class="pedido">
