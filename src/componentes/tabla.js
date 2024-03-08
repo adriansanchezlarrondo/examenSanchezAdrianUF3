@@ -28,34 +28,40 @@ export const tabla =  {
             const numeroMesa = document.querySelector('#numeroMesa').value
             const nombreCerveza = document.querySelector('#cervezas').options[document.querySelector('#cervezas').selectedIndex].text
             const cantidad = document.querySelector('#cantidad').value
-            
-            pedidos.push({
-                id: pedidos.length + 1,
-                numeroMesa: numeroMesa,
-                nombreGrupo: nombreGrupo,
-                cerveza: nombreCerveza,
-                cantidad: cantidad,
-                estado: 'pendiente'
-            })
-            console.log(pedidos)
-
-            const ultimoPedido = pedidos[pedidos.length - 1]
-
-            document.querySelector('#tbodyPedidos').innerHTML += `
-            <tr data-pedido="${ultimoPedido.id}" class="pedido">
-                <td>${ultimoPedido.nombreGrupo}</td>
-                <td>${ultimoPedido.numeroMesa}</td>
-                <td>${ultimoPedido.cerveza}</td>
-                <td>${ultimoPedido.cantidad}</td>
-                <td>
-                    <div class="d-flex gap-2">
-                        <button id="btnPendiente" class="btn btn-outline-warning w-100 btn-sm">Pedido pendiente...</button>
-                        <button id="btnEliminar" class="btn btn-outline-danger w-100 btn-sm"> 🗑 Borrar pedido</button>
-                    </div>
-                </td>
-            </tr>
-            `                
+            if(!(nombreGrupo.length < 4 || nombreGrupo.length > 10 || numeroMesa.length < 1 || numeroMesa.length > 15 || cantidad == 0)){
+                pedidos.push({
+                    id: pedidos.length + 1,
+                    numeroMesa: numeroMesa,
+                    nombreGrupo: nombreGrupo,
+                    cerveza: nombreCerveza,
+                    cantidad: cantidad,
+                    estado: 'pendiente'
+                })
+                console.log(pedidos)
+    
+                const ultimoPedido = pedidos[pedidos.length - 1]
+    
+                document.querySelector('#tbodyPedidos').innerHTML += `
+                <tr data-pedido="${ultimoPedido.id}" class="pedido">
+                    <td>${ultimoPedido.nombreGrupo}</td>
+                    <td>${ultimoPedido.numeroMesa}</td>
+                    <td>${ultimoPedido.cerveza}</td>
+                    <td>${ultimoPedido.cantidad}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <button id="btnPendiente" class="btn btn-outline-warning w-100 btn-sm">Pedido pendiente...</button>
+                            <button id="btnEliminar" class="btn btn-outline-danger w-100 btn-sm"> 🗑 Borrar pedido</button>
+                        </div>
+                    </td>
+                </tr>
+                `
+            } else {
+                document.querySelector('#nombreGrupo').classList.add('border-danger')
+                document.querySelector('#numeroMesa').classList.add('border-danger')
+                document.querySelector('#cantidad').classList.add('border-danger')
+            }
         })
+            
 
 
         document.querySelector('#tbodyPedidos').addEventListener('click', (e) => {
