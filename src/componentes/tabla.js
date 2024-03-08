@@ -1,6 +1,4 @@
-// import { comandas } from "../main"
-
-// import { actualizarTotalPrecio, comandas } from "./form"
+let pedidos = []
 
 export const tabla =  {
     template:  //html
@@ -11,7 +9,6 @@ export const tabla =  {
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Grupo</th>
                     <th>Mesa</th>
                     <th>Cerveza</th>
@@ -19,118 +16,85 @@ export const tabla =  {
                     <th>Estado</th>
                 </tr>        
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Borrachos de DAW2</td>
-                    <td>1</td>
-                    <td>Estrella Galicia</td>
-                    <td>3</td>
-                    <td>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-outline-warning w-100 btn-sm">Pedido pendiente...</button>
-                            <button class="btn btn-outline-danger w-100 btn-sm"> 🗑 Borrar pedido</button>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Cabezones contentos</td>
-                    <td>1</td>
-                    <td>Estrella DAM</td>
-                    <td>2</td>
-                    <td>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-outline-success w-100 btn-sm">¡Pedido servido!</button>
-                            <button class="btn btn-outline-danger w-100 btn-sm"> 🗑 Borrar pedido</button>
-                        </div>       
-                    </td>
-                </tr>
-            </tbody>
+            <tbody id="tbodyPedidos"></tbody>
         </table>
     </div>
-
-
-
-    <!--<div class="card pt-5 m-5 shadow border-0 ">
-        <div class="p-5">
-            <h3 class="">Selecciona tu cerveza y haz tu pedido</h3>
-            <table id="tablaPedidos" class="container table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Cerveza</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="tbodyCervezas">
-
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2">Total:</td>
-                        <td id="totalPrecio" colspan="3">0</td>
-                    </tr>
-                </tfoot>
-            </table>
-
-        </div>
-    </div>-->
     `,
     script : ()=>{
-        // document.querySelector('#tablaPedidos').addEventListener('click', (e) => {
+        document.querySelector('#btnAñadir').addEventListener('click', (e) => {
+            e.preventDefault()
 
-        //     console.log('Hola desde TablaPedidos')
+            const nombreGrupo = document.querySelector('#nombreGrupo').value
+            const numeroMesa = document.querySelector('#numeroMesa').value
+            const nombreCerveza = document.querySelector('#cervezas').options[document.querySelector('#cervezas').selectedIndex].text
+            const cantidad = document.querySelector('#cantidad').value
             
-        //     if(e.target.id == 'btnEdit'){
-        //       console.log('editar', e.target.id)
-        //       Editar(e)
-        //     }
+            pedidos.push({
+                id: pedidos.length + 1,
+                numeroMesa: numeroMesa,
+                nombreGrupo: nombreGrupo,
+                cerveza: nombreCerveza,
+                cantidad: cantidad,
+                estado: 'pendiente'
+            })
+            console.log(pedidos)
 
-        //     if(e.target.id == 'btnEliminar'){
-        //       console.log('borrar', e.target.id)
-        //       Eliminar(e)
-        //     }
-    
-        // })
+            const ultimoPedido = pedidos[pedidos.length - 1]
+            // console.log('ultimoPedido', ultimoPedido);
 
-        // function Eliminar(e) {
+            document.querySelector('#tbodyPedidos').innerHTML += `
+            <tr data-pedido="${ultimoPedido.id}" class="pedido">
+                <td>${ultimoPedido.nombreGrupo}</td>
+                <td>${ultimoPedido.numeroMesa}</td>
+                <td>${ultimoPedido.cerveza}</td>
+                <td>${ultimoPedido.cantidad}</td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <button id="btnPendiente" class="btn btn-outline-warning w-100 btn-sm">Pedido pendiente...</button>
+                        <button id="btnEliminar" class="btn btn-outline-danger w-100 btn-sm"> 🗑 Borrar pedido</button>
+                    </div>
+                </td>
+            </tr>
+            `                
+        })
 
-        //     const fila = e.target.closest('tr')
-        //     const idPedido = parseInt(fila.dataset.pedido)
 
-        //     // Crear un nuevo array sin la comanda que se desea eliminar
-        //     const comandasFiltradas = comandas.filter(pedido => pedido.id !== idPedido);
-        //     console.log('comandasFiltradas', comandasFiltradas);
-        //     // Actualizar el array comandas con el nuevo array filtrado
-        //     comandas.length = 0;
-        //     comandas.push(...comandasFiltradas);
-        //     console.log('comandas', comandas)
-        //     // Eliminar la fila de la tabla
-        //     fila.remove();
+        document.querySelector('#tbodyPedidos').addEventListener('click', (e) => {
             
-        //     actualizarTotalPrecio(comandasFiltradas.precioTotal)
-        // }
+            if(e.target.id == 'btnPendiente'){
+                const botonPendiente = e.target
 
-        // function Editar(e) {
+                botonPendiente.classList.remove('btn-outline-warning')
+                botonPendiente.classList.add('btn-outline-success')
+                botonPendiente.innerHTML = 'Pedido servido'
+            }
 
-        //     const fila = e.target.closest('tr')
-        //     const comandaId = parseInt(fila.dataset.comandaid)
+            if(e.target.id == 'btnEliminar'){
+                const trPedido = e.target.closest('tr')
+                const idPedido = parseInt(trPedido.dataset.pedido)
 
-        //     // Crear un nuevo array sin la comanda que se desea eliminar
-        //     const comandasFiltradas = comandas.filter(comanda => comanda.id !== comandaId);
-            
-        //     // Actualizar el array comandas con el nuevo array filtrado
-        //     comandas.length = 0;
-        //     comandas.push(...comandasFiltradas);
-        //     console.log(comandas)
-        //     // Eliminar la fila de la tabla
-        //     fila.remove();
-            
-        //     actualizarTotalPrecio()
-        // }
+                const pedidosNuevo = pedidos.filter(pedido => pedido.id != idPedido)
+                
+                document.querySelector('#tbodyPedidos').innerHTML = ''
+                pedidosNuevo.forEach(item => {
+                    document.querySelector('#tbodyPedidos').innerHTML += `
+                    <tr data-pedido="${item.id}" class="pedido">
+                        <td>${item.nombreGrupo}</td>
+                        <td>${item.numeroMesa}</td>
+                        <td>${item.cerveza}</td>
+                        <td>${item.cantidad}</td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <button id="btnPendiente" class="btn btn-outline-warning w-100 btn-sm">Pedido pendiente...</button>
+                                <button id="btnEliminar" class="btn btn-outline-danger w-100 btn-sm"> 🗑 Borrar pedido</button>
+                            </div>
+                        </td>
+                    </tr>
+                    `                
+                })
 
+                pedidos = pedidosNuevo
+            }
+        })
     }
 }
